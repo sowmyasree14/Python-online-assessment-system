@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Already Submitted{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h1>Assessment already submitted</h1>
+  <p>An attempt is already recorded for <strong>{{ attempt.student_email }}</strong>.</p>
+  <p>Recorded score: <strong>{{ attempt.score }} / {{ attempt.total }}</strong>.</p>
+  <p>If this is unexpected, please contact your instructor.</p>
+  <a class="button secondary" href="{{ url_for('index') }}">Back to home</a>
+</section>
+{% endblock %}
