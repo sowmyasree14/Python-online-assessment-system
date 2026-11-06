@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: python-basics-assessment
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite:////var/data/assessment.db
+    disk:
+      name: assessment-data
+      mountPath: /var/data
+      sizeGB: 1

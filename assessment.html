@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Assessment | Python Basics{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">20 MULTIPLE-CHOICE QUESTIONS</p>
+  <h1>Python Basics Assessment</h1>
+  <p>Select the best answer for each question.</p>
+</div>
+<form method="post" action="{{ url_for('assessment') }}" class="assessment-form">
+  <section class="panel student-details">
+    <h2>Student details</h2>
+    <label>Full name <input name="student_name" maxlength="120" required autocomplete="name"></label>
+    <label>Email address <input type="email" name="student_email" maxlength="254" required autocomplete="email"></label>
+  </section>
+
+  {% for q in questions %}
+  <section class="question-card">
+    <div class="question-meta"><span>Question {{ q.id }} of 20</span><span>{{ q.topic }}</span></div>
+    <h2>{{ q.question }}</h2>
+    {% if q.code %}
+    <pre><code>{{ q.code }}</code></pre>
+    {% endif %}
+    <div class="options">
+      {% for option in q.options %}
+      <label class="option">
+        <input type="radio" name="q{{ q.id }}" value="{{ loop.index0 }}" required>
+        <span>{{ option }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+  <button class="button submit-button" type="submit" onclick="return confirm('Submit your assessment now? You cannot submit again with the same email address.')">Submit assessment</button>
+</form>
+{% endblock %}
